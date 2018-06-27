@@ -6,6 +6,7 @@ import AppBarCustom from '../app-bar-custom'
 import { scrollTopCreate } from '../../../action/scrollTop-actions'
 import { windowSizeCreate } from '../../../action/windowSize-actions'
 import { stanfordEventsRequest } from '../../../action/stanford-events-actions'
+import { meetupEventsRequest } from '../../../action/meetup-events-actions'
 import Body from '../body'
 import debounce from 'debounce'
 
@@ -20,6 +21,7 @@ class Landing extends React.Component {
 		this.setScroll()
 		window.addEventListener('resize', this.setWindowSize)
 		this.props.stanfordEventsRequest()
+		this.props.meetupEventsRequest()
 	}
 	setScroll = () => {
 		if (this.refs.landing.scrollTop === 0) {
@@ -79,7 +81,8 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
 	scrollTopCreate: scroll => dispatch(scrollTopCreate(scroll)),
 	windowSizeCreate: windowSize => dispatch(windowSizeCreate(windowSize)),
-	stanfordEventsRequest: () => dispatch(stanfordEventsRequest())
+	stanfordEventsRequest: () => dispatch(stanfordEventsRequest()),
+	meetupEventsRequest: () => dispatch(meetupEventsRequest())
 })
 
 export default connect(

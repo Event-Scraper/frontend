@@ -9,7 +9,6 @@ export const stanfordEventsRequest = () => (dispatch, getState) => {
 	return superagent
 		.get(`${API_URL}/api/events/stanford/all`)
 		.then(res => {
-			console.log(res)
 			dispatch(stanfordEventsSet(res.body))
 			return res.body
 		})
