@@ -20,8 +20,9 @@ class Landing extends React.Component {
 		this.props.scrollTopCreate({ scrollTop: 1 })
 		this.setScroll()
 		window.addEventListener('resize', this.setWindowSize)
-		this.props.stanfordEventsRequest()
-		this.props.meetupEventsRequest()
+		this.props.stanfordEventsRequest().then(() => {
+			this.props.meetupEventsRequest()
+		})
 	}
 	setScroll = () => {
 		if (this.refs.landing.scrollTop === 0) {
