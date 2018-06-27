@@ -15,7 +15,7 @@ class Body extends React.Component {
 					setWindowSize={this.props.setWindowSize}
 					handleNav={this.props.handleNav}
 				/>
-				<Events />
+				<Events setWindowSize={this.props.setWindowSize} />
 			</Fragment>
 		)
 	}

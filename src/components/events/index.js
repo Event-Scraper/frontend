@@ -3,9 +3,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { withStyles } from '@material-ui/core/styles'
 import { scrollTopCreate } from '../../../action/scrollTop-actions'
-
-import AppBarCustom from '../app-bar-custom'
-import Body from '../body'
+import EventsDisplay from '../events-display'
 
 class Events extends React.Component {
 	constructor(props) {
@@ -14,6 +12,7 @@ class Events extends React.Component {
 		this.state = {}
 	}
 	componentDidMount() {
+		this.props.setWindowSize()
 		setTimeout(() => {
 			this.setOffsetTop()
 		}, 500)
@@ -36,7 +35,7 @@ class Events extends React.Component {
 					<div className="events__content__header">
 						<h1 className="events__content__header__title">Upcoming Events</h1>
 					</div>
-					<div className="events__content__body" />
+					<EventsDisplay />
 				</div>
 			</div>
 		)
