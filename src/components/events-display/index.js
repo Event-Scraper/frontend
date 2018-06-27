@@ -3,6 +3,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { withStyles } from '@material-ui/core/styles'
 import { scrollTopCreate } from '../../../action/scrollTop-actions'
+import EventItem from '../event-item'
 
 const Fragment = React.Fragment
 
@@ -17,6 +18,13 @@ class EventsDisplay extends React.Component {
 		this.setState({ selectedArr: this.props.stanfordEvents })
 	}
 
+	componentWillReceiveProps(nextProps) {
+		console.log(this.state.selectedArr)
+		console.log(nextProps.stanfordEvents)
+
+		this.setState({ selectedArr: this.props.stanfordEvents })
+	}
+
 	render() {
 		return (
 			<Fragment>
@@ -24,7 +32,9 @@ class EventsDisplay extends React.Component {
 					style={{ height: this.props.windowSize.height / 1.5 }}
 					className="events-display__body"
 				>
-					<h1>HELLO</h1>
+					{this.state.selectedArr.map(event => {
+						return <EventItem />
+					})}
 				</div>
 			</Fragment>
 		)
