@@ -75,11 +75,7 @@ class MenuAppBar extends React.Component {
 							opacity: this.props.opaque,
 							zIndex: 10
 						}}
-					>
-						<Typography variant="title" className={classes.flex}>
-							{/* {this.props.title} */}
-						</Typography>
-					</Toolbar>
+					/>
 					{auth && (
 						<Fragment>
 							<img
@@ -135,45 +131,12 @@ class MenuAppBar extends React.Component {
 										onClick={() => {
 											this.handleClose()
 											this.props.handleNav(
-												this.props.scrolltop.aboutOffsetTop,
+												this.props.scrolltop.eventsOffsetTop,
 												500
 											)
 										}}
 									>
-										About Me
-									</MenuItem>
-									<MenuItem
-										onClick={() => {
-											this.handleClose()
-											this.props.handleNav(
-												this.props.scrolltop.skillsOffsetTop,
-												500
-											)
-										}}
-									>
-										Skills
-									</MenuItem>
-									<MenuItem
-										onClick={() => {
-											this.handleClose()
-											this.props.handleNav(
-												this.props.scrolltop.workOffsetTop,
-												500
-											)
-										}}
-									>
-										Recent Work
-									</MenuItem>
-									<MenuItem
-										onClick={() => {
-											this.handleClose()
-											this.props.handleNav(
-												this.props.scrolltop.contactOffsetTop,
-												500
-											)
-										}}
-									>
-										Contact Me
+										Upcoming Events
 									</MenuItem>
 								</Menu>
 							</div>
