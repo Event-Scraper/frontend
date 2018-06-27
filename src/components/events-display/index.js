@@ -19,9 +19,6 @@ class EventsDisplay extends React.Component {
 	}
 
 	componentWillReceiveProps(nextProps) {
-		console.log(this.state.selectedArr)
-		console.log(nextProps.stanfordEvents)
-
 		this.setState({ selectedArr: this.props.stanfordEvents })
 	}
 
@@ -33,7 +30,7 @@ class EventsDisplay extends React.Component {
 					className="events-display__body"
 				>
 					{this.state.selectedArr.map(event => {
-						return <EventItem />
+						return <EventItem event={event} />
 					})}
 				</div>
 			</Fragment>

@@ -20,8 +20,28 @@ class EventItem extends React.Component {
 	render() {
 		return (
 			<Fragment>
-				<div className="event-item">
-					<h1>HELLO</h1>
+				<div
+					onClick={() => {
+						window.open(this.props.event.url, '_blank')
+					}}
+					className="event-item"
+				>
+					<div className="event-item__icon">
+						<i className={this.props.event.icon} />
+					</div>
+					<div
+						className="event-item__img"
+						style={{
+							backgroundImage: `url(${
+								this.props.event ? this.props.event.imgUrl : ''
+							})`
+						}}
+					/>
+					<div className="event-item__details">
+						<h3>What: {this.props.event.title}</h3>
+						<p> Where: {this.props.event.location}</p>
+						<p> When: {this.props.event.time}</p>
+					</div>
 				</div>
 			</Fragment>
 		)
