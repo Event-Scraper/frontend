@@ -1,0 +1,65 @@
+@import '../../style/_vars.scss';
+
+.events {
+	position: relative;
+	&__content {
+		width: 100%;
+		background-color: $color-primary;
+		display: flex;
+		flex-direction: column;
+		flex-wrap: wrap;
+		justify-content: center;
+		align-content: center;
+		align-items: center;
+		&__header {
+			display: flex;
+			flex-direction: column;
+			flex-wrap: wrap;
+			justify-content: center;
+			align-content: center;
+			align-items: center;
+			&__icon {
+				color: $color-tertiary;
+				font-size: 5vw;
+			}
+			&__title {
+				color: $white;
+				margin: 0;
+				font-size: 3vw;
+			}
+		}
+
+		&__body {
+			width: 60%;
+			display: flex;
+			flex-direction: row;
+			flex-wrap: wrap;
+			justify-content: center;
+			align-content: center;
+			align-items: center;
+			&__paragraph {
+				width: 50%;
+				color: $white;
+				font-size: 2vw;
+			}
+			&__photo-div {
+				margin-left: 20px;
+				border-radius: 5%;
+				width: 45%;
+				height: 50%;
+				background-color: $color-tertiary;
+				display: flex;
+				flex-direction: column;
+				flex-wrap: wrap;
+				justify-content: center;
+				align-content: center;
+				align-items: center;
+				&__photo {
+					border-radius: 50%;
+					width: 70%;
+					height: 70%;
+				}
+			}
+		}
+	}
+}
