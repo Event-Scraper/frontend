@@ -71,7 +71,11 @@ class Landing extends React.Component {
 					opaque={opaque}
 					title="James Billard"
 				/>
-				<Body opacity={opacity} setWindowSize={this.setWindowSize} />
+				<Body
+					handleNav={this.handleNav}
+					opacity={opacity}
+					setWindowSize={this.setWindowSize}
+				/>
 			</main>
 		)
 	}

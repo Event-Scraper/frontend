@@ -29,7 +29,14 @@ class Header extends React.Component {
 							From Stanford, Eventbrite, and Meetup.
 						</h4>
 					</section>
-					<i className="material-icons arrow-down">keyboard_arrow_down</i>
+					<i
+						onClick={() =>
+							this.props.handleNav(this.props.scrolltop.eventsOffsetTop, 500)
+						}
+						className="material-icons arrow-down"
+					>
+						keyboard_arrow_down
+					</i>
 				</header>,
 				<div />
 			</Fragment>

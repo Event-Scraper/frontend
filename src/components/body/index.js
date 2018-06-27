@@ -13,6 +13,7 @@ class Body extends React.Component {
 				<Header
 					opacity={this.props.opacity}
 					setWindowSize={this.props.setWindowSize}
+					handleNav={this.props.handleNav}
 				/>
 				<Events />
 			</Fragment>

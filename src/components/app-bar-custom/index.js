@@ -131,7 +131,7 @@ class MenuAppBar extends React.Component {
 										onClick={() => {
 											this.handleClose()
 											this.props.handleNav(
-												this.props.scrolltop.aboutOffsetTop,
+												this.props.scrolltop.eventsOffsetTop,
 												500
 											)
 										}}
