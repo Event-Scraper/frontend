@@ -1,0 +1,44 @@
+@import '../../style/_vars.scss';
+
+.app-bar {
+	background-color: transparent;
+	z-index: 10;
+}
+
+.icon-button {
+	position: absolute;
+	display: none;
+	z-index: 11;
+	right: 10px;
+	top: 7px;
+}
+
+.corner-logo {
+	position: absolute;
+	width: calc(8vw + 10px);
+	min-width: 55px;
+	max-width: 120px;
+	z-index: 11;
+	top: 5px;
+	left: 20px;
+	visibility: hidden;
+	opacity: 0;
+	transition: height 500ms 500ms, opacity 500ms 500ms;
+}
+
+.show {
+	opacity: 1;
+	visibility: visible;
+	transition: height 500ms 500ms, opacity 500ms 500ms;
+}
+
+.shadowfiltersmall {
+	-webkit-filter: drop-shadow(0px 5px 3px $color-secondary);
+	filter: drop-shadow(0px 5px 3px $color-secondary);
+}
+
+@media screen and (max-width: 700px) {
+	.icon-button {
+		display: block;
+	}
+}
