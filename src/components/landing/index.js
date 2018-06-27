@@ -7,6 +7,7 @@ import { scrollTopCreate } from '../../../action/scrollTop-actions'
 import { windowSizeCreate } from '../../../action/windowSize-actions'
 import { stanfordEventsRequest } from '../../../action/stanford-events-actions'
 import { meetupEventsRequest } from '../../../action/meetup-events-actions'
+import { eventbriteEventsRequest } from '../../../action/eventbrite-events-actions'
 import Body from '../body'
 import debounce from 'debounce'
 
@@ -21,7 +22,9 @@ class Landing extends React.Component {
 		this.setScroll()
 		window.addEventListener('resize', this.setWindowSize)
 		this.props.stanfordEventsRequest().then(() => {
-			this.props.meetupEventsRequest()
+			this.props.eventbriteEventsRequest().then(() => {
+				this.props.meetupEventsRequest()
+			})
 		})
 	}
 	setScroll = () => {
@@ -83,7 +86,8 @@ const mapDispatchToProps = dispatch => ({
 	scrollTopCreate: scroll => dispatch(scrollTopCreate(scroll)),
 	windowSizeCreate: windowSize => dispatch(windowSizeCreate(windowSize)),
 	stanfordEventsRequest: () => dispatch(stanfordEventsRequest()),
-	meetupEventsRequest: () => dispatch(meetupEventsRequest())
+	meetupEventsRequest: () => dispatch(meetupEventsRequest()),
+	eventbriteEventsRequest: () => dispatch(eventbriteEventsRequest())
 })
 
 export default connect(
