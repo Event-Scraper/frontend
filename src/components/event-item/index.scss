@@ -1,0 +1,52 @@
+@import '../../style/_vars.scss';
+
+.event-item {
+	width: calc(50% - 10px);
+	height: 35%;
+	margin: 5px;
+	box-sizing: border-box;
+	background-color: rgba(0, 0, 0, 0.9);
+	border-radius: 5px;
+	display: inline-flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	justify-content: space-around;
+	align-content: flex-start;
+	align-items: center;
+	cursor: pointer;
+	&__icon {
+		width: 4%;
+		height: 100%;
+		i {
+			color: white;
+			font-size: 26px;
+			margin-top: 10px;
+			margin-left: 10px;
+		}
+	}
+	&__img {
+		display: inline-block;
+		width: 30%;
+		height: 60%;
+		background-size: contain;
+		background-position: center center;
+		background-repeat: no-repeat;
+	}
+	&__details {
+		display: inline-block;
+		width: 55%;
+		height: 90%;
+		display: inline-flex;
+		flex-direction: column;
+		flex-wrap: nowrap;
+		justify-content: center;
+		align-content: center;
+		align-items: flex-start;
+		h3 {
+			color: $white;
+		}
+		p {
+			color: $white;
+		}
+	}
+}

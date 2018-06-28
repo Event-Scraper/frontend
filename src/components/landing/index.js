@@ -8,6 +8,8 @@ import { windowSizeCreate } from '../../../action/windowSize-actions'
 import { stanfordEventsRequest } from '../../../action/stanford-events-actions'
 import { meetupEventsRequest } from '../../../action/meetup-events-actions'
 import { eventbriteEventsRequest } from '../../../action/eventbrite-events-actions'
+import { allEventsSet } from '../../../action/all-events-actions'
+import { eventSourceMapSet } from '../../../action/event-source-map-actions'
 import Body from '../body'
 import debounce from 'debounce'
 
@@ -22,8 +24,35 @@ class Landing extends React.Component {
 		this.setScroll()
 		window.addEventListener('resize', this.setWindowSize)
 		this.props.stanfordEventsRequest().then(() => {
+			let obj = { ...this.props.eventSourceMap }
+			this.props.stanfordEvents.map(event => {
+				if (!obj[event.source]) {
+					obj[event.source] = false
+					this.props.eventSourceMapSet(obj)
+				}
+			})
 			this.props.eventbriteEventsRequest().then(() => {
-				this.props.meetupEventsRequest()
+				let obj = { ...this.props.eventSourceMap }
+				this.props.eventbriteEvents.map(event => {
+					if (!obj[event.source]) {
+						obj[event.source] = false
+						this.props.eventSourceMapSet(obj)
+					}
+				})
+				this.props.meetupEventsRequest().then(() => {
+					let obj = { ...this.props.eventSourceMap }
+					this.props.meetupEvents.map(event => {
+						if (!obj[event.source]) {
+							obj[event.source] = false
+							this.props.eventSourceMapSet(obj)
+						}
+					})
+					let obj2 = this.props.eventbriteEvents.concat(
+						this.props.meetupEvents,
+						this.props.stanfordEvents
+					)
+					this.props.allEventsSet(obj2)
+				})
 			})
 		})
 	}
@@ -83,7 +112,12 @@ class Landing extends React.Component {
 
 const mapStateToProps = state => ({
 	scrolltop: state.scrolltop,
-	windowSize: state.windowSize
+	windowSize: state.windowSize,
+	stanfordEvents: state.stanfordEvents,
+	meetupEvents: state.meetupEvents,
+	eventbriteEvents: state.eventbriteEvents,
+	allEvents: state.allEvents,
+	eventSourceMap: state.eventSourceMap
 })
 
 const mapDispatchToProps = dispatch => ({
@@ -91,7 +125,9 @@ const mapDispatchToProps = dispatch => ({
 	windowSizeCreate: windowSize => dispatch(windowSizeCreate(windowSize)),
 	stanfordEventsRequest: () => dispatch(stanfordEventsRequest()),
 	meetupEventsRequest: () => dispatch(meetupEventsRequest()),
-	eventbriteEventsRequest: () => dispatch(eventbriteEventsRequest())
+	eventbriteEventsRequest: () => dispatch(eventbriteEventsRequest()),
+	allEventsSet: events => dispatch(allEventsSet(events)),
+	eventSourceMapSet: map => dispatch(eventSourceMapSet(map))
 })
 
 export default connect(
