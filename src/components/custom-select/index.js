@@ -5,17 +5,18 @@ import Select from 'react-select'
 import 'react-select/dist/react-select.css'
 
 class CustomSelect extends React.Component {
-	state = {
-		selectedOption: ''
-	}
+	state = {}
 
 	render() {
 		return (
 			<Select
 				name="form-field-name"
 				className="custom-select"
-				value={this.state.selectedOption}
-				onChange={this.props.handleEventDisplay}
+				multi
+				// joinValues
+				value={this.props.selectedOption}
+				onChange={e => this.props.handleEventDisplay(e)}
+				placeholder="Select your favourite(s)"
 				options={this.props.eventKeys.map(key => {
 					return { value: key, label: key }
 				})}

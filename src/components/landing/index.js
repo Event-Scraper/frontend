@@ -27,7 +27,7 @@ class Landing extends React.Component {
 			let obj = { ...this.props.eventSourceMap }
 			this.props.stanfordEvents.map(event => {
 				if (!obj[event.source]) {
-					obj[event.source] = true
+					obj[event.source] = false
 					this.props.eventSourceMapSet(obj)
 				}
 			})
@@ -44,7 +44,6 @@ class Landing extends React.Component {
 					this.props.meetupEvents.map(event => {
 						if (!obj[event.source]) {
 							obj[event.source] = false
-							console.log(obj)
 							this.props.eventSourceMapSet(obj)
 						}
 					})
