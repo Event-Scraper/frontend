@@ -5,6 +5,7 @@ import { withStyles } from '@material-ui/core/styles'
 import { scrollTopCreate } from '../../../action/scrollTop-actions'
 import { eventSourceMapSet } from '../../../action/event-source-map-actions'
 import EventItem from '../event-item'
+import CustomSelect from '../custom-select'
 
 const Fragment = React.Fragment
 
@@ -24,16 +25,25 @@ class EventsDisplay extends React.Component {
 	}
 
 	handleEventDisplay = source => {
-		if (this.props.eventSourceMap[source] === true) {
-			let obj = { ...this.props.eventSourceMap }
-			obj[source] = false
-			this.props.eventSourceMap(obj)
-		}
+		console.log(source)
+		// if (this.props.eventSourceMap[source] === true) {
+		// 	let obj = { ...this.props.eventSourceMap }
+		// 	obj[source] = false
+		// 	this.props.eventSourceMap(obj)
+		// } else {
+		// 	let obj = { ...this.props.eventSourceMap }
+		// 	obj[source] = true
+		// 	this.props.eventSourceMap(obj)
+		// }
 	}
 
 	render() {
 		return (
 			<Fragment>
+				<CustomSelect
+					handleEventDisplay={this.handleEventDisplay}
+					eventKeys={Object.keys(this.props.eventSourceMap)}
+				/>
 				<div
 					style={{ height: this.props.windowSize.height / 1.5 }}
 					className="events-display__body"

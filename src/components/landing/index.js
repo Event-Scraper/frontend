@@ -25,28 +25,33 @@ class Landing extends React.Component {
 		this.setScroll()
 		window.addEventListener('resize', this.setWindowSize)
 		this.props.stanfordEventsRequest().then(() => {
+			this.props.stanfordEvents.map(event => {
+				if (!map[event.source]) {
+					map[event.source] = true
+				}
+			})
+			this.props.eventSourceMapSet(map)
 			this.props.eventbriteEventsRequest().then(() => {
-				this.props
-					.meetupEventsRequest()
-					.then(() => {
-						let obj = this.props.eventbriteEvents.concat(
-							this.props.meetupEvents,
-							this.props.stanfordEvents
-						)
-						this.props.allEventsSet(obj)
+				this.props.eventbriteEvents.map(event => {
+					if (!map[event.source]) {
+						map[event.source] = false
+					}
+				})
+				this.props.eventSourceMapSet(map)
+				this.props.meetupEventsRequest().then(() => {
+					let obj = this.props.eventbriteEvents.concat(
+						this.props.meetupEvents,
+						this.props.stanfordEvents
+					)
+					this.props.allEventsSet(obj)
+
+					this.props.meetupEvents.map(event => {
+						if (!map[event.source]) {
+							map[event.source] = false
+						}
 					})
-					.then(() => {
-						this.props.allEvents.map(event => {
-							if (!map[event.source]) {
-								if (event.source === 'Stanford') {
-									map[event.source] = true
-								} else {
-									map[event.source] = false
-								}
-							}
-						})
-						this.props.eventSourceMapSet(map)
-					})
+					this.props.eventSourceMapSet(map)
+				})
 			})
 		})
 	}
