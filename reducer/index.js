@@ -5,6 +5,7 @@ import stanfordEvents from './stanford-events'
 import meetupEvents from './meetup-events'
 import eventbriteEvents from './eventbrite-events'
 import allEvents from './all-events'
+import eventSourceMap from './event-source-map'
 
 export default combineReducers({
 	scrolltop: scrolltop,
@@ -12,5 +13,6 @@ export default combineReducers({
 	stanfordEvents: stanfordEvents,
 	meetupEvents: meetupEvents,
 	eventbriteEvents: eventbriteEvents,
-	allEvents: allEvents
+	allEvents: allEvents,
+	eventSourceMap: eventSourceMap
 })

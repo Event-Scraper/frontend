@@ -9,6 +9,7 @@ import { stanfordEventsRequest } from '../../../action/stanford-events-actions'
 import { meetupEventsRequest } from '../../../action/meetup-events-actions'
 import { eventbriteEventsRequest } from '../../../action/eventbrite-events-actions'
 import { allEventsSet } from '../../../action/all-events-actions'
+import { eventSourceMapSet } from '../../../action/event-source-map-actions'
 import Body from '../body'
 import debounce from 'debounce'
 
@@ -19,18 +20,33 @@ class Landing extends React.Component {
 		this.setWindowSize = debounce(this.setWindowSize, 500)
 	}
 	componentDidMount() {
+		let map = {}
 		this.props.scrollTopCreate({ scrollTop: 1 })
 		this.setScroll()
 		window.addEventListener('resize', this.setWindowSize)
 		this.props.stanfordEventsRequest().then(() => {
 			this.props.eventbriteEventsRequest().then(() => {
-				this.props.meetupEventsRequest().then(() => {
-					let obj = this.props.eventbriteEvents.concat(
-						this.props.meetupEvents,
-						this.props.stanfordEvents
-					)
-					this.props.allEventsSet(obj)
-				})
+				this.props
+					.meetupEventsRequest()
+					.then(() => {
+						let obj = this.props.eventbriteEvents.concat(
+							this.props.meetupEvents,
+							this.props.stanfordEvents
+						)
+						this.props.allEventsSet(obj)
+					})
+					.then(() => {
+						this.props.allEvents.map(event => {
+							if (!map[event.source]) {
+								if (event.source === 'Stanford') {
+									map[event.source] = true
+								} else {
+									map[event.source] = false
+								}
+							}
+						})
+						this.props.eventSourceMapSet(map)
+					})
 			})
 		})
 	}
@@ -93,7 +109,8 @@ const mapStateToProps = state => ({
 	windowSize: state.windowSize,
 	stanfordEvents: state.stanfordEvents,
 	meetupEvents: state.meetupEvents,
-	eventbriteEvents: state.eventbriteEvents
+	eventbriteEvents: state.eventbriteEvents,
+	allEvents: state.allEvents
 })
 
 const mapDispatchToProps = dispatch => ({
@@ -102,7 +119,8 @@ const mapDispatchToProps = dispatch => ({
 	stanfordEventsRequest: () => dispatch(stanfordEventsRequest()),
 	meetupEventsRequest: () => dispatch(meetupEventsRequest()),
 	eventbriteEventsRequest: () => dispatch(eventbriteEventsRequest()),
-	allEventsSet: events => dispatch(allEventsSet(events))
+	allEventsSet: events => dispatch(allEventsSet(events)),
+	eventSourceMapSet: map => dispatch(eventSourceMapSet(map))
 })
 
 export default connect(
