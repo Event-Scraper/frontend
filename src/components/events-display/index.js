@@ -17,14 +17,10 @@ class EventsDisplay extends React.Component {
 	}
 
 	handleEventDisplay = source => {
-		console.log(source)
-
 		let arr = source.map(source => {
 			return source.value
 		})
-		console.log(arr)
 		this.setState({ selectedOption: arr }, () => {
-			console.log('THIS IS THE SELECtED', this.state.selectedOption)
 			let obj = { ...this.props.eventSourceMap }
 			this.state.selectedOption.map(selected => {
 				if (this.props.eventSourceMap[selected] === false) {
@@ -35,13 +31,15 @@ class EventsDisplay extends React.Component {
 				this.state.selectedOption,
 				Object.keys(this.props.eventSourceMap)
 			)
-			console.log('THIS IS THE DIFFERENCE', diff)
 			if (diff.length) {
 				diff.map(dif => {
 					obj[dif] = false
 				})
 			}
 			this.props.eventSourceMapSet(obj)
+			setTimeout(() => {
+				this.createSelectedArr()
+			}, 1000)
 		})
 	}
 
@@ -68,7 +66,22 @@ class EventsDisplay extends React.Component {
 		return diff
 	}
 
-	createSelectedArr = () => {}
+	createSelectedArr = () => {
+		let keys = Object.keys(this.props.eventSourceMap)
+		this.setState({ selectedArr: [] }, () => {
+			let arr = []
+			keys.map(key => {
+				if (this.props.eventSourceMap[key] === true) {
+					let notation = key.toLowerCase() + 'Events'
+					let arr2 = this.props[notation]
+					for (let i = 0; i < arr2.length; i++) {
+						arr.push(arr2[i])
+					}
+				}
+				this.setState({ selectedArr: arr })
+			})
+		})
+	}
 
 	render() {
 		let keys = Object.keys(this.props.eventSourceMap)
