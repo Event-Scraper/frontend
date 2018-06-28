@@ -8,6 +8,7 @@ import { windowSizeCreate } from '../../../action/windowSize-actions'
 import { stanfordEventsRequest } from '../../../action/stanford-events-actions'
 import { meetupEventsRequest } from '../../../action/meetup-events-actions'
 import { eventbriteEventsRequest } from '../../../action/eventbrite-events-actions'
+import { allEventsSet } from '../../../action/all-events-actions'
 import Body from '../body'
 import debounce from 'debounce'
 
@@ -23,7 +24,13 @@ class Landing extends React.Component {
 		window.addEventListener('resize', this.setWindowSize)
 		this.props.stanfordEventsRequest().then(() => {
 			this.props.eventbriteEventsRequest().then(() => {
-				this.props.meetupEventsRequest()
+				this.props.meetupEventsRequest().then(() => {
+					let obj = this.props.eventbriteEvents.concat(
+						this.props.meetupEvents,
+						this.props.stanfordEvents
+					)
+					this.props.allEventsSet(obj)
+				})
 			})
 		})
 	}
@@ -83,7 +90,10 @@ class Landing extends React.Component {
 
 const mapStateToProps = state => ({
 	scrolltop: state.scrolltop,
-	windowSize: state.windowSize
+	windowSize: state.windowSize,
+	stanfordEvents: state.stanfordEvents,
+	meetupEvents: state.meetupEvents,
+	eventbriteEvents: state.eventbriteEvents
 })
 
 const mapDispatchToProps = dispatch => ({
@@ -91,7 +101,8 @@ const mapDispatchToProps = dispatch => ({
 	windowSizeCreate: windowSize => dispatch(windowSizeCreate(windowSize)),
 	stanfordEventsRequest: () => dispatch(stanfordEventsRequest()),
 	meetupEventsRequest: () => dispatch(meetupEventsRequest()),
-	eventbriteEventsRequest: () => dispatch(eventbriteEventsRequest())
+	eventbriteEventsRequest: () => dispatch(eventbriteEventsRequest()),
+	allEventsSet: events => dispatch(allEventsSet(events))
 })
 
 export default connect(

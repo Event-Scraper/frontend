@@ -27,7 +27,10 @@ class EventItem extends React.Component {
 					className="event-item"
 				>
 					<div className="event-item__icon">
-						<i className={this.props.event.icon} />
+						<i
+							title={this.props.event.source}
+							className={this.props.event.icon}
+						/>
 					</div>
 					<div
 						className="event-item__img"
