@@ -20,37 +20,39 @@ class Landing extends React.Component {
 		this.setWindowSize = debounce(this.setWindowSize, 500)
 	}
 	componentDidMount() {
-		let map = {}
 		this.props.scrollTopCreate({ scrollTop: 1 })
 		this.setScroll()
 		window.addEventListener('resize', this.setWindowSize)
 		this.props.stanfordEventsRequest().then(() => {
+			let obj = { ...this.props.eventSourceMap }
 			this.props.stanfordEvents.map(event => {
-				if (!map[event.source]) {
-					map[event.source] = true
+				if (!obj[event.source]) {
+					obj[event.source] = true
+					this.props.eventSourceMapSet(obj)
 				}
 			})
-			this.props.eventSourceMapSet(map)
 			this.props.eventbriteEventsRequest().then(() => {
+				let obj = { ...this.props.eventSourceMap }
 				this.props.eventbriteEvents.map(event => {
-					if (!map[event.source]) {
-						map[event.source] = false
+					if (!obj[event.source]) {
+						obj[event.source] = false
+						this.props.eventSourceMapSet(obj)
 					}
 				})
-				this.props.eventSourceMapSet(map)
 				this.props.meetupEventsRequest().then(() => {
-					let obj = this.props.eventbriteEvents.concat(
+					let obj = { ...this.props.eventSourceMap }
+					this.props.meetupEvents.map(event => {
+						if (!obj[event.source]) {
+							obj[event.source] = false
+							console.log(obj)
+							this.props.eventSourceMapSet(obj)
+						}
+					})
+					let obj2 = this.props.eventbriteEvents.concat(
 						this.props.meetupEvents,
 						this.props.stanfordEvents
 					)
-					this.props.allEventsSet(obj)
-
-					this.props.meetupEvents.map(event => {
-						if (!map[event.source]) {
-							map[event.source] = false
-						}
-					})
-					this.props.eventSourceMapSet(map)
+					this.props.allEventsSet(obj2)
 				})
 			})
 		})
@@ -115,7 +117,8 @@ const mapStateToProps = state => ({
 	stanfordEvents: state.stanfordEvents,
 	meetupEvents: state.meetupEvents,
 	eventbriteEvents: state.eventbriteEvents,
-	allEvents: state.allEvents
+	allEvents: state.allEvents,
+	eventSourceMap: state.eventSourceMap
 })
 
 const mapDispatchToProps = dispatch => ({

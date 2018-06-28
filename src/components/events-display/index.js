@@ -38,11 +38,12 @@ class EventsDisplay extends React.Component {
 	}
 
 	render() {
+		let keys = Object.keys(this.props.eventSourceMap)
 		return (
 			<Fragment>
 				<CustomSelect
 					handleEventDisplay={this.handleEventDisplay}
-					eventKeys={Object.keys(this.props.eventSourceMap)}
+					eventKeys={keys}
 				/>
 				<div
 					style={{ height: this.props.windowSize.height / 1.5 }}

@@ -1,5 +1,6 @@
 import './index.scss'
 import React from 'react'
+import { connect } from 'react-redux'
 import Select from 'react-select'
 import 'react-select/dist/react-select.css'
 
