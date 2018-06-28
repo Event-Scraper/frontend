@@ -37,3 +37,81 @@
 ## What are the performance bottlenecks with your current server? How would you address them?
 
 ## As stated previously the route I created for meetup.com events is extremely slow. I would probably store the results for the day and then make a new request for each new day as this is how the data is setup on that site. As said before, I would also spend some much needed time research the topic.
+
+# Instructions:
+
+## 1. In terminal clone both repositories to your local machine using
+
+```
+Backend:  git clone https://github.com/Event-Scraper/backend.git
+Frontend: git clone https://github.com/Event-Scraper/frontend.git
+```
+
+## 2. For both repositories, in terminal type:
+
+```
+npm i
+```
+
+## This will install the necessary npm plugins to run this program
+
+## 3. You will need to create a .env (terminal: touch .env) file for BOTH repositories. They will need to contain the following:
+
+#Frontend
+
+```
+NODE_ENV='development'
+PORT=8080
+API_URL='http://localhost:8000'
+```
+
+#Backend
+
+```
+PORT=8000
+CORS_ORIGINS='http://localhost:8080'
+```
+
+## 4. Once this has been completed (and saved), it is now time to start the backend. In terminal, navigate to the folder which contains the backend portion of the project and type:
+
+```
+npm run start
+```
+
+## You will know when the backend is running when you get the message:
+
+```
+scraper:server server on 8000 +0ms
+```
+
+## 5. When this has been completed, It is time to run the frontend. In terminal, navigate to the folder which contains the fronend portion of the project and type:
+
+```
+npm run watch
+```
+
+## You will know when the frontend is running when you see the message:
+
+```
+ℹ ｢wdm｣: Compiled successfully.
+```
+
+## Don't worry too much if this takes a while as the project needs to build.
+
+## 6. At this point you should be fully up and running
+
+## 7. You can run tests in either frontend or backend by ending your build sessions (^c) and entering the following command in terminal:
+
+```
+npm run test
+```
+
+## be sure you have the devDependencies installed or the test will not work. You can do this by typing:
+
+```
+npm install --only=dev
+```
+
+## more can be found about this at https://docs.npmjs.com/cli/install
+
+## Thank you and enjoy!
