@@ -13,10 +13,9 @@ class CustomSelect extends React.Component {
 				name="form-field-name"
 				className="custom-select"
 				multi
-				// joinValues
 				value={this.props.selectedOption}
 				onChange={e => this.props.handleEventDisplay(e)}
-				placeholder="Select your favourite(s)"
+				placeholder="Select your favourite event site"
 				options={this.props.eventKeys.map(key => {
 					return { value: key, label: key }
 				})}
